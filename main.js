@@ -18,6 +18,18 @@ function signedInHandler()
     displayLocations();
     displayProducts();
     displayInventory();
+
+    setUpUserBox();
+}
+
+function setUpUserBox()
+{
+    var htmlString = "<p>" + currentUser.displayName + "</p>" +
+        " " +
+        " " +
+        "<img class='userPhoto' src='" + currentUser.photoURL + "'>";
+
+    document.getElementById("UserBox").innerHTML = htmlString;
 }
 
 function displayLocations()
@@ -116,4 +128,36 @@ function cleanInput(string)
     {
         return null;
     }
+}
+
+function showShoppingListTab()
+{
+    document.getElementById("ShoppingList").removeAttribute("style");
+    document.getElementById("Locations").style.display = "none";
+    document.getElementById("Products").style.display = "none";
+    document.getElementById("Inventory").style.display = "none";
+}
+
+function showLocationsTab()
+{
+    document.getElementById("ShoppingList").style.display = "none";
+    document.getElementById("Locations").removeAttribute("style");
+    document.getElementById("Products").style.display = "none";
+    document.getElementById("Inventory").style.display = "none";
+}
+
+function showProductsTab()
+{
+    document.getElementById("ShoppingList").style.display = "none";
+    document.getElementById("Locations").style.display = "none";
+    document.getElementById("Products").removeAttribute("style");
+    document.getElementById("Inventory").style.display = "none";
+}
+
+function showInventoryTab()
+{
+    document.getElementById("ShoppingList").style.display = "none";
+    document.getElementById("Locations").style.display = "none";
+    document.getElementById("Products").style.display = "none";
+    document.getElementById("Inventory").removeAttribute("style");
 }

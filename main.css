@@ -1,10 +1,48 @@
-body
+#siteContainer
 {
     display: flex;
     align-items: center;
     justify-content: center;
     align-content: center;
     flex-direction: column;
+}
+
+#Header
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    position: fixed;
+    top: 0;
+}
+
+#HeaderBuffer
+{
+    height: 100px;
+}
+
+.headerItem
+{
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerItem:hover
+{
+    background-color: black;
+    color: green;
+}
+
+.userPhoto
+{
+    height: 40px;
+    margin: 0px 5px;
 }
 
 #newLocation

@@ -31,19 +31,35 @@
 
     <body>
         <div id="siteContainer">
-            <div id="Header"></div>
-            <div id="Locations">
+
+            <div id="Header">
+                <div class="headerItem" onclick="showShoppingListTab()"><p>Shopping List</p></div>
+                <div class="headerItem" onclick="showLocationsTab()"><p>Locations</p></div>
+                <div class="headerItem" onclick="showProductsTab()"><p>Products</p></div>
+                <div class="headerItem" onclick="showInventoryTab()"><p>Inventory</p></div>
+                <div id="UserBox" class="headerItem"></div>
+            </div>
+            <div id="HeaderBuffer"></div>
+
+            <div style="display: none;" id="ShoppingList">
+                <h2>Shopping List</h2>
+
+            </div>
+
+            <div style="display: none;" id="Locations">
                 <div id="locationList"></div>
                 <div id="newLocation" onclick="newLocation();">+</div>
             </div>
-            <div id="Products">
+
+            <div style="display: none;" id="Products">
                 <div id="productList"></div>
                 <div id="newProduct" onclick="newProduct();">+</div>
             </div>
-            <div id="Inventory">
 
+            <div style="display: none;" id="Inventory">
                 <div id="inventoryList"></div>
             </div>
+
             <div id="Footer"></div>
 
             <div id="firebaseui-auth-container"></div>
