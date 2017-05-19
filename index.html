@@ -1,0 +1,52 @@
+<html>
+    <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8"/>
+
+        <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCmXr6gS44SZ9zWkTeixX0C9gr6XKq343U",
+                authDomain: "shopping-a2fb2.firebaseapp.com",
+                databaseURL: "https://shopping-a2fb2.firebaseio.com",
+                projectId: "shopping-a2fb2",
+                storageBucket: "shopping-a2fb2.appspot.com",
+                messagingSenderId: "1028552578785"
+            };
+            firebase.initializeApp(config);
+        </script>
+
+        <!--FirebaseUI-->
+        <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
+
+        <!--Firebase Logged In-->
+        <script type="text/javascript" src="fbli.js"></script>
+
+        <script type="text/javascript" src="main.js"></script>
+        <link rel="stylesheet" href="main.css">
+    </head>
+
+    <body>
+        <div id="siteContainer">
+            <div id="Header"></div>
+            <div id="Locations">
+                <div id="locationList"></div>
+                <div id="newLocation" onclick="newLocation();">+</div>
+            </div>
+            <div id="Products">
+                <div id="productList"></div>
+                <div id="newProduct" onclick="newProduct();">+</div>
+            </div>
+            <div id="Inventory">
+
+                <div id="inventoryList"></div>
+            </div>
+            <div id="Footer"></div>
+
+            <div id="firebaseui-auth-container"></div>
+        </div>
+    </body>
+</html>
