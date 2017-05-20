@@ -37,13 +37,14 @@
                 <div class="headerItem" onclick="showLocationsTab()"><p>Locations</p></div>
                 <div class="headerItem" onclick="showProductsTab()"><p>Products</p></div>
                 <div class="headerItem" onclick="showInventoryTab()"><p>Inventory</p></div>
-                <div id="UserBox" class="headerItem"></div>
+                <div id="UserBox" class="headerItem" onclick="showProfileTab()">
+                    <p>Loading...</p>
+                </div>
             </div>
             <div id="HeaderBuffer"></div>
 
             <div style="display: none;" id="ShoppingList">
-                <h2>Shopping List</h2>
-
+                <div id="shoppingListContainer"></div>
             </div>
 
             <div style="display: none;" id="Locations">
@@ -58,6 +59,11 @@
 
             <div style="display: none;" id="Inventory">
                 <div id="inventoryList"></div>
+            </div>
+
+            <div style="display: none;" id="Profile">
+                <h2>Profile</h2>
+                <input type="button" value="Sign Out" class="signOutButton">
             </div>
 
             <div id="Footer"></div>

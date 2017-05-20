@@ -3,6 +3,7 @@ var userRef;
 var productRef;
 var locationRef;
 var inventoryRef;
+var shoppingRef;
 
 function signedInHandler()
 {
@@ -12,22 +13,33 @@ function signedInHandler()
     productRef = db.ref(currentUser.uid + "/Products/");
     locationRef = db.ref(currentUser.uid + "/Locations/");
     inventoryRef = db.ref(currentUser.uid + "/Inventory/");
+    shoppingRef = db.ref(currentUser.uid + "/ShoppingList");
 
     document.getElementById("firebaseui-auth-container").style.display = "none";
 
     displayLocations();
     displayProducts();
     displayInventory();
+    displayShoppingList();
 
     setUpUserBox();
 }
 
+function displayShoppingList()
+{
+    shoppingRef.on('value', function(snapshot){
+        var newHTML = "<h2>Shopping List</h2>";
+        snapshot.forEach(function(item){
+            newHTML += "<p>" + item.key + ": " + item.val() + "</p>";
+        });
+        document.getElementById("shoppingListContainer").innerHTML = newHTML;
+    });
+}
+
 function setUpUserBox()
 {
-    var htmlString = "<p>" + currentUser.displayName + "</p>" +
-        " " +
-        " " +
-        "<img class='userPhoto' src='" + currentUser.photoURL + "'>";
+    var htmlString = "<img class='userPhoto' src='" + currentUser.photoURL + "'>" +
+        "<p>" + currentUser.displayName + "</p>";
 
     document.getElementById("UserBox").innerHTML = htmlString;
 }
@@ -37,10 +49,19 @@ function displayLocations()
     locationRef.on('value', function(snapshot){
         var newHTML = "<h2>Locations</h2>";
         snapshot.forEach(function(location){
+            newHTML += "<div class='listItem'>";
             newHTML += "<p>" + location.key + " : " + location.val().products + "</p>";
+            newHTML += "<input onclick='removeLocation(\"" + location.key + "\")' class='deleteButton' value='x' type='button'>";
+            newHTML += "</div>";
         });
         document.getElementById("locationList").innerHTML = newHTML;
     });
+}
+
+function removeLocation(locationKey)
+{
+    //remove from products
+    locationRef.child(locationKey).remove();
 }
 
 function displayProducts()
@@ -48,10 +69,21 @@ function displayProducts()
     productRef.on('value', function(snapshot){
         var newHTML = "<h2>Products</h2>";
         snapshot.forEach(function(product){
+            newHTML += "<div class='listItem'>";
             newHTML += "<p>" + product.key + " : " + product.val().locations + "</p>";
+            newHTML += "<input onclick='removeProduct(\"" + product.key + "\")' class='deleteButton' value='x' type='button'>";
+            newHTML += "</div>";
         });
         document.getElementById("productList").innerHTML = newHTML;
     });
+}
+
+function removeProduct(productKey)
+{
+    //remove from locations
+    productRef.child(productKey).remove();
+    inventoryRef.child(productKey).remove();
+    shoppingRef.child(productKey).remove();
 }
 
 function displayInventory()
@@ -85,7 +117,7 @@ function newLocation()
             else
             {
                 locationRef.child(nameResult).update({
-                    products: "",
+                    products: [],
                 });
             }
         });
@@ -106,7 +138,7 @@ function newProduct()
             else
             {
                 productRef.child(nameResult).update({
-                    locations: "",
+                    locations: [],
                 });
 
                 var newObject = {};
@@ -122,7 +154,7 @@ function cleanInput(string)
 {
     if (string != null)
     {
-        return string.replace(/[^0-9a-z\ ]/gi, "").trim().toLowerCase();
+        return string.replace(/[\.\$\[\]\#]/gi, "").trim().toLowerCase();
     }
     else
     {
@@ -136,6 +168,7 @@ function showShoppingListTab()
     document.getElementById("Locations").style.display = "none";
     document.getElementById("Products").style.display = "none";
     document.getElementById("Inventory").style.display = "none";
+    document.getElementById("Profile").style.display = "none";
 }
 
 function showLocationsTab()
@@ -144,6 +177,7 @@ function showLocationsTab()
     document.getElementById("Locations").removeAttribute("style");
     document.getElementById("Products").style.display = "none";
     document.getElementById("Inventory").style.display = "none";
+    document.getElementById("Profile").style.display = "none";
 }
 
 function showProductsTab()
@@ -152,6 +186,7 @@ function showProductsTab()
     document.getElementById("Locations").style.display = "none";
     document.getElementById("Products").removeAttribute("style");
     document.getElementById("Inventory").style.display = "none";
+    document.getElementById("Profile").style.display = "none";
 }
 
 function showInventoryTab()
@@ -160,4 +195,14 @@ function showInventoryTab()
     document.getElementById("Locations").style.display = "none";
     document.getElementById("Products").style.display = "none";
     document.getElementById("Inventory").removeAttribute("style");
+    document.getElementById("Profile").style.display = "none";
+}
+
+function showProfileTab()
+{
+    document.getElementById("ShoppingList").style.display = "none";
+    document.getElementById("Locations").style.display = "none";
+    document.getElementById("Products").style.display = "none";
+    document.getElementById("Inventory").style.display = "none";
+    document.getElementById("Profile").removeAttribute("style");
 }
