@@ -70,3 +70,29 @@
     align-items: center;
     justify-content: center;
 }
+
+#locationOptions, #productOptions
+{
+    height: 25vh;
+    width: 25vw;
+    border: 1px solid green;
+    position: fixed;
+    top: 37.5vh;
+    left: 37.5vw;
+    background-color: rgba(0, 150, 136, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    flex-direction: column;
+}
+#coverAll
+{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 2;
+}

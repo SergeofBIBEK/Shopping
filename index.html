@@ -38,7 +38,7 @@
                 <div class="headerItem" onclick="showProductsTab()"><p>Products</p></div>
                 <div class="headerItem" onclick="showInventoryTab()"><p>Inventory</p></div>
                 <div id="UserBox" class="headerItem" onclick="showProfileTab()">
-                    <p>Loading...</p>
+                    <p>Logged Out</p>
                 </div>
             </div>
             <div id="HeaderBuffer"></div>
@@ -63,12 +63,17 @@
 
             <div style="display: none;" id="Profile">
                 <h2>Profile</h2>
-                <input type="button" value="Sign Out" class="signOutButton">
+                <input type="button" value="Sign Out" class="signOutButton" onclick="logOut()">
             </div>
+            
+            <div id="locationOptions" style="display: none;"></div>
+            
+            <div id="productOptions" style="display: none;"></div>
 
             <div id="Footer"></div>
 
             <div id="firebaseui-auth-container"></div>
         </div>
+        <div id="coverAll" style="display:none;"></div>
     </body>
 </html>
