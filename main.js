@@ -50,17 +50,46 @@ function displayLocations()
         var newHTML = "<h2>Locations</h2>";
         snapshot.forEach(function(location){
             newHTML += "<div class='listItem'>";
-            newHTML += "<p>" + location.key + " : " + location.val().products + "</p>";
             newHTML += "<input onclick='removeLocation(\"" + location.key + "\")' class='deleteButton' value='x' type='button'>";
+            newHTML += "<p>" + location.key + " : " + getProductsByLocation(location.key) + "</p>";
             newHTML += "</div>";
         });
         document.getElementById("locationList").innerHTML = newHTML;
     });
 }
 
+function getProductsByLocation(loc)
+{
+    var HTMLString = " ";
+    locationRef.child(loc).once("value", function(products){
+        products.forEach(function(product){
+            if (product.val())
+            {
+                HTMLString += product.key + ", ";
+            }
+        });
+    });
+
+    if (HTMLString == " ")
+    {
+        HTMLString = " None";
+    }
+    else
+    {
+        HTMLString = HTMLString.slice(0, -2);
+    }
+
+    return HTMLString;
+}
+
 function removeLocation(locationKey)
 {
     //remove from products
+    productRef.once('value', function(products){
+        products.forEach(function(product){
+            productRef.child(product.key).child(locationKey).remove();
+        });
+    });
     locationRef.child(locationKey).remove();
 }
 
@@ -70,17 +99,47 @@ function displayProducts()
         var newHTML = "<h2>Products</h2>";
         snapshot.forEach(function(product){
             newHTML += "<div class='listItem'>";
-            newHTML += "<p>" + product.key + " : " + product.val().locations + "</p>";
             newHTML += "<input onclick='removeProduct(\"" + product.key + "\")' class='deleteButton' value='x' type='button'>";
+            newHTML += "<p>" + product.key + " : " + getLocationsByProduct(product.key) + "</p>";
+
             newHTML += "</div>";
         });
         document.getElementById("productList").innerHTML = newHTML;
     });
 }
 
+function getLocationsByProduct(prod)
+{
+    var HTMLString = " ";
+    productRef.child(prod).once("value", function(locations){
+        locations.forEach(function(location){
+            if (location.val())
+            {
+                HTMLString += location.key + ", ";
+            }
+        });
+    });
+
+    if (HTMLString == " ")
+    {
+        HTMLString = " None";
+    }
+    else
+    {
+        HTMLString = HTMLString.slice(0, -2);
+    }
+
+    return HTMLString;
+}
+
 function removeProduct(productKey)
 {
     //remove from locations
+    locationRef.once('value', function(locations){
+        locations.forEach(function(location){
+            locationRef.child(location.key).child(productKey).remove();
+        });
+    });
     productRef.child(productKey).remove();
     inventoryRef.child(productKey).remove();
     shoppingRef.child(productKey).remove();
@@ -117,7 +176,7 @@ function newLocation()
             else
             {
                 locationRef.child(nameResult).update({
-                    products: [],
+                    X: false,
                 });
             }
         });
@@ -138,7 +197,7 @@ function newProduct()
             else
             {
                 productRef.child(nameResult).update({
-                    locations: [],
+                    X: false,
                 });
 
                 var newObject = {};
