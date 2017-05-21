@@ -427,7 +427,7 @@ function cleanInput(string)
 {
     if (string != null)
     {
-        return string.replace(/[\.\$\[\]\#]/gi, "").trim().toLowerCase();
+        return string.replace(/[\.\$\[\]\#']/gi, "").trim().toLowerCase();
     }
     else
     {

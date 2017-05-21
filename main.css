@@ -3,6 +3,12 @@
     -webkit-appearance: none;
 }
 
+body
+{
+    margin: 0px;
+    overflow-x: hidden;
+}
+
 input
 {
     outline: none;
@@ -45,7 +51,7 @@ input:active
 {
     width: 100%;
     max-height: 50px;
-    border: 4px dotted white;
+    border: 4px double white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,9 +97,9 @@ input:active
 {
     width: 50%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    max-height: 50px;
+    flex-wrap: wrap;
 }
 
 #locationOptions, #productOptions
@@ -158,18 +164,16 @@ input:active
 
 .leftList
 {
-    border-right: 1.5px solid black;
+    
 }
 
 .rightList
 {
-    border-left: 1.5px solid black;
+    border-left: 3px solid black;
 }
 
 .boughtButton
 {
-    position: relative;
-    left: 20px;
     background-color: #ffd90c;
     color: black;
     border: 2px dotted white;
@@ -184,8 +188,6 @@ input:active
 
 .changeButton
 {
-    position: relative;
-    left: 20px;
     background-color: #0064ff;
     color: black;
     border: 2px dotted white;
@@ -200,8 +202,6 @@ input:active
 
 .addToShoppingListButton
 {
-    position: relative;
-    left: 20px;
     background-color: #bb23ea;
     color: black;
     border: 2px dotted white;
@@ -216,8 +216,6 @@ input:active
 
 .removeFromShoppingListButton, .deleteButton
 {
-    position: relative;
-    right: 20px;
     background-color: #e02020;
     color: white;
     border: 2px dotted white;
@@ -266,4 +264,10 @@ input:active
     align-items: center;
     background-color: #b3ffb5;
     font-size: 20px;
+}
+
+.listItem p 
+{
+    margin: 10px 0px;
+    max-width: 50%;
 }
