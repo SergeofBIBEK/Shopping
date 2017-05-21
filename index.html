@@ -79,21 +79,26 @@
             <!--INVENTORY TAB-->
             <div style="display: none;" class="tabContainer" id="Inventory">
                 <h2>Inventory</h2>
+                <label>Filter:<select id="inventoryFilter" onchange="filter();"></select></label>
                 <div class="tableHeader"><h3>Item</h3><h3>Quantity</h3></div>
                 <div id="inventoryList" class="listContainer"></div>
+                <div id="newInventoryProduct" class="addAnother" onclick="newProduct();">Add Another</div>
             </div>
 
             <!--PROFILE TAB-->
-            <div style="display: none;" id="Profile" class="tabContainer">
+            <div id="Profile" class="tabContainer">
                 <h2>Profile</h2>
                 <input type="button" value="Sign Out" class="signOutButton" onclick="logOut()">
             </div>
 
             <!--OPTIONS MODAL FOR LOCATION-->
-            <div id="locationOptions" style="display: none;"></div>
+            <div id="locationOptions" class="optionsModal" style="display: none;"></div>
 
             <!--OPTIONS MODAL FOR PRODUCTS-->
-            <div id="productOptions" style="display: none;"></div>
+            <div id="productOptions" class="optionsModal" style="display: none;"></div>
+            
+            <!--OPTION MODAL FOR SHOPPING LIST-->
+            <div id="shoppingOptions" class="optionsModal" style="display: none;"></div>
 
             <!--FOOTER-->
             <div id="Footer"></div>

@@ -5,6 +5,7 @@ var locationRef;
 var inventoryRef;
 var shoppingRef;
 
+
 function signedInHandler()
 {
     db = firebase.database();
@@ -32,11 +33,11 @@ function displayShoppingList()
 
             var filter = document.getElementById("storeFilter").value;
             var productHasFilter;
-            
+
             productRef.child(item.key).child(filter).once('value', function(store){
-                productHasFilter = store.exists();
+                productHasFilter = store.val();
             });
-            
+
             if (filter == "All" || productHasFilter)
             {
                 newHTML += "<div class='listItem'>";
@@ -122,6 +123,7 @@ function displayLocations()
         });
         document.getElementById("locationList").innerHTML = newHTML;
         document.getElementById("storeFilter").innerHTML = filterHTML;
+        document.getElementById("inventoryFilter").innerHTML = filterHTML;
     });
 }
 
@@ -137,7 +139,7 @@ function addProductToLocation(locationKey)
     var newSelect = document.createElement("select");
     newSelect.id = "productSelect";
 
-    var HTMLString = "";
+    var HTMLString = "<option value='New'>New</option>";
 
     productRef.once('value', function(snapshot){
         snapshot.forEach(function(product){
@@ -151,26 +153,41 @@ function addProductToLocation(locationKey)
 
     theDiv.appendChild(newSelect);
 
-    theDiv.innerHTML += "<input onclick='handlePtoL(\"" + locationKey + "\", true" + ")' type='button' value='Add' class='addProductToLocationButton'>";
+    theDiv.innerHTML += "<input onclick='handlePtoL(\"" + locationKey + "\", true" + ")' type='button' value='Add' class='addButton'>";
 
-    theDiv.innerHTML += "<input onclick='handlePtoL(\"" + locationKey + "\", false" + ")' type='button' value='Remove' class='removeProductToLocationButton'>";
+    theDiv.innerHTML += "<input onclick='handlePtoL(\"" + locationKey + "\", false" + ")' type='button' value='Remove' class='removeButton'>";
 
     theDiv.innerHTML += "<input onclick='closeOptions();' type='button' value='Cancel' class='cancelButton'>";
 }
 
 function handlePtoL(locationKey, add)
 {
-    var newProduct = document.getElementById("productSelect").value;
+    var addedProduct = document.getElementById("productSelect").value;
 
     //set item to location and set location to item
+
+    if (addedProduct == "New")
+    {
+        if (!add)
+        {
+            return;
+        }
+
+        addedProduct =  newProduct();
+
+        if (addedProduct == null)
+        {
+            return;
+        }
+    }
 
     var productUpdates = {};
     productUpdates[locationKey] = add;
 
     var locationUpdates = {};
-    locationUpdates[newProduct] = add;
+    locationUpdates[addedProduct] = add;
 
-    productRef.child(newProduct).update(productUpdates);
+    productRef.child(addedProduct).update(productUpdates);
     locationRef.child(locationKey).update(locationUpdates);
 
     closeOptions();
@@ -246,10 +263,11 @@ function addLocationToProduct(productKey)
     var newSelect = document.createElement("select");
     newSelect.id = "locationSelect";
 
-    var HTMLString = "";
+    var HTMLString = "<option value='New'>New</option>";
 
     locationRef.once('value', function(snapshot){
         snapshot.forEach(function(location){
+
             HTMLString += "<option value='" + location.key + "'>";
             HTMLString += location.key;
             HTMLString += "</option>";
@@ -260,33 +278,49 @@ function addLocationToProduct(productKey)
 
     theDiv.appendChild(newSelect);
 
-    theDiv.innerHTML += "<input onclick='handleLtoP(\"" + productKey + "\", true" + ")' type='button' value='Add' class='addLocationToProductButton'>";
+    theDiv.innerHTML += "<input onclick='handleLtoP(\"" + productKey + "\", true" + ")' type='button' value='Add' class='addButton'>";
 
-    theDiv.innerHTML += "<input onclick='handleLtoP(\"" + productKey + "\", false" + ")' type='button' value='Remove' class='removeLocationToProductButton'>";
+    theDiv.innerHTML += "<input onclick='handleLtoP(\"" + productKey + "\", false" + ")' type='button' value='Remove' class='removeButton'>";
 
     theDiv.innerHTML += "<input onclick='closeOptions();' type='button' value='Cancel' class='cancelButton'>";
 }
 
 function handleLtoP(productKey, add)
 {
-    var newLocation = document.getElementById("locationSelect").value;
+    var addedLocation = document.getElementById("locationSelect").value;
 
     //set item to location and set location to item
 
+    if (addedLocation == "New")
+    {
+        if (!add)
+        {
+            return;
+        }
+
+        addedLocation =  newLocation();
+
+        if (addedLocation == null)
+        {
+            return;
+        }
+    }
+
     var productUpdates = {};
-    productUpdates[newLocation] = add;
+    productUpdates[addedLocation] = add;
 
     var locationUpdates = {};
     locationUpdates[productKey] = add;
 
     productRef.child(productKey).update(productUpdates);
-    locationRef.child(newLocation).update(locationUpdates);
+    locationRef.child(addedLocation).update(locationUpdates);
 
     closeOptions();
 }
 
 function closeOptions()
 {
+    document.getElementById("shoppingOptions").style.display = "none";
     document.getElementById("locationOptions").style.display = "none";
     document.getElementById("productOptions").style.display = "none";
     document.getElementById("coverAll").style.display = "none";
@@ -353,17 +387,27 @@ function displayInventory()
         var newHTML = "";
         snapshot.forEach(function(inventory){
 
-            newHTML += "<div class='listItem'>";
-            newHTML += "<div class='leftList'>";
-            newHTML += "<p>" + inventory.key + "</p>";
-            newHTML += "<input onclick='addToShoppingList(\"" + inventory.key + "\")' class='addToShoppingListButton' value='+List' type='button'>";
-            newHTML += "</div>";
-            newHTML += "<div class='rightList'>";
-            newHTML += "<input type='button' class='minusButton' value='-' onclick='subtractOne(\"" + inventory.key + "\")'>";
-            newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + inventory.val() + "</p>";
-            newHTML += "<input type='button' class='plusButton' value='+' onclick='addOne(\"" + inventory.key + "\")'>";
-            newHTML += "</div>";
-            newHTML += "</div>";
+            var filter = document.getElementById("inventoryFilter").value;
+            var productHasFilter;
+
+            productRef.child(inventory.key).child(filter).once('value', function(store){
+                productHasFilter = store.val();
+            });
+
+            if (filter == "All" || productHasFilter)
+            {
+                newHTML += "<div class='listItem'>";
+                newHTML += "<div class='leftList'>";
+                newHTML += "<p>" + inventory.key + "</p>";
+                newHTML += "<input onclick='addToShoppingList(\"" + inventory.key + "\")' class='addToShoppingListButton' value='+List' type='button'>";
+                newHTML += "</div>";
+                newHTML += "<div class='rightList'>";
+                newHTML += "<input type='button' class='minusButton' value='-' onclick='subtractOne(\"" + inventory.key + "\")'>";
+                newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + inventory.val() + "</p>";
+                newHTML += "<input type='button' class='plusButton' value='+' onclick='addOne(\"" + inventory.key + "\")'>";
+                newHTML += "</div>";
+                newHTML += "</div>";
+            }
 
         });
         document.getElementById("inventoryList").innerHTML = newHTML;
@@ -382,11 +426,6 @@ function subtractOne(item)
     inventoryRef.child(item).transaction(function(total){
         return total - 1;
     });
-}
-
-function signedOutHandler()
-{
-    console.log("Signed Out");
 }
 
 function newLocation()
@@ -409,6 +448,7 @@ function newLocation()
             }
         });
     }
+    return nameResult;
 }
 
 function newProduct()
@@ -435,6 +475,12 @@ function newProduct()
             }
         });
     }
+    return nameResult;
+}
+
+function signedOutHandler()
+{
+    console.log("Signed Out");
 }
 
 function cleanInput(string)
@@ -501,7 +547,68 @@ function logOut()
 
 function addNewToShoppingList()
 {
-    console.log("Clicked!");
+    var theDiv = document.getElementById("shoppingOptions");
+
+    theDiv.innerHTML = "";
+
+    theDiv.removeAttribute("style");
+    document.getElementById("coverAll").removeAttribute("style");
+
+    var newSelect = document.createElement("select");
+    newSelect.id = "shoppingSelect";
+
+    var HTMLString = "<option value='New'>New</option>";
+
+    productRef.once('value', function(snapshot){
+        snapshot.forEach(function(product){
+
+            var exists;
+
+            shoppingRef.child(product.key).once('value', function(item){
+                exists = item.exists();
+            });
+
+            if(!exists)
+            {
+                HTMLString += "<option value='" + product.key + "'>";
+                HTMLString += product.key;
+                HTMLString += "</option>";
+            }
+        });
+    });
+
+    newSelect.innerHTML = HTMLString;
+
+    theDiv.appendChild(newSelect);
+
+    theDiv.innerHTML += "<input onclick='addToShopping();' type='button' value='Add' class='addButton'>";
+
+    theDiv.innerHTML += "<input onclick='closeOptions();' type='button' value='Cancel' class='cancelButton'>";
+}
+
+function addToShopping()
+{
+    var newItem = document.getElementById("shoppingSelect").value;
+
+    //set item to location and set location to item
+
+    if (newItem == "New")
+    {
+
+        newItem =  newProduct();
+
+        if (newItem == null)
+        {
+            return;
+        }
+    }
+
+    var updates = {};
+    updates[newItem] = 1;
+
+    shoppingRef.update(updates);
+
+    closeOptions();
 }
 
 function filter()
@@ -510,6 +617,13 @@ function filter()
         X: true
     });
     shoppingRef.update({
+        X: null
+    });
+    
+    inventoryRef.update({
+        X: true
+    });
+    inventoryRef.update({
         X: null
     });
 }
