@@ -1,7 +1,7 @@
-@media all and (min-width: 50px)   {  body, input  { font-size:0.3em;  } }
-@media all and (min-width: 100px)  {  body, input  { font-size:0.4em;  } }
-@media all and (min-width: 200px)  {  body, input  { font-size:0.6em;  } }
-@media all and (min-width: 300px)  {  body, input  { font-size:0.8em;  } }
+@media all and (min-width: 50px)   {  body, input  { font-size:0.4em;  } }
+@media all and (min-width: 100px)  {  body, input  { font-size:0.6em;  } }
+@media all and (min-width: 200px)  {  body, input  { font-size:0.8em;  } }
+@media all and (min-width: 300px)  {  body, input  { font-size:1.0em;  } }
 @media all and (min-width: 400px)  {  body, input  { font-size:1.0em;  } }
 @media all and (min-width: 500px)  {  body, input  { font-size:1.2em;  } }
 @media all and (min-width: 600px)  {  body, input  { font-size:1.2em;  } }
@@ -51,12 +51,12 @@ input:active
     background-color: green;
     position: fixed;
     top: 0;
-    height: 80px;
+    height: 10vw;
 }
 
 #HeaderBuffer
 {
-    height: 90px;
+    height: 11vw;
 }
 
 .headerItem
@@ -76,7 +76,7 @@ input:active
 
 .userPhoto
 {
-    height: 40px;
+    height: 90%;
     margin: 0px 5px;
 }
 
