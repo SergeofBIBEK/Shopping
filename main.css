@@ -6,6 +6,7 @@
 input
 {
     outline: none;
+    text-align: center;
 }
 
 input:active
@@ -80,7 +81,7 @@ input:active
 
 .listItem > *
 {
-    width: 100%;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
