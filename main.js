@@ -29,18 +29,29 @@ function displayShoppingList()
     shoppingRef.on('value', function(snapshot){
         var newHTML = "";
         snapshot.forEach(function(item){
-            newHTML += "<div class='listItem'>";
-            newHTML += "<div class='leftList'>";
-            newHTML += "<input onclick='removeFromShoppingList(\"" + item.key + "\")' type='button' value='x' class='removeFromShoppingListButton'>";
-            newHTML += "<p>" + item.key + "</p>";
-            newHTML += "</div>";
-            newHTML += "<div class='rightList'>";
-            newHTML += "<input onclick='subtractOneShopping(\"" + item.key + "\")' type='button' value='-' class='minusButton'>";
-            newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + item.val() + "</p>";
-            newHTML += "<input onclick='addOneShopping(\"" + item.key + "\")' type='button' value='+' class='plusButton'>";
-            newHTML += "<input onclick='bought(\"" + item.key + "\")' type='button' value='Bought' class='boughtButton'>";
-            newHTML += "</div>";
-            newHTML += "</div>";
+
+            var filter = document.getElementById("storeFilter").value;
+            var productHasFilter;
+            
+            productRef.child(item.key).child(filter).once('value', function(store){
+                productHasFilter = store.exists();
+            });
+            
+            if (filter == "All" || productHasFilter)
+            {
+                newHTML += "<div class='listItem'>";
+                newHTML += "<div class='leftList'>";
+                newHTML += "<input onclick='removeFromShoppingList(\"" + item.key + "\")' type='button' value='x' class='removeFromShoppingListButton'>";
+                newHTML += "<p>" + item.key + "</p>";
+                newHTML += "</div>";
+                newHTML += "<div class='rightList'>";
+                newHTML += "<input onclick='subtractOneShopping(\"" + item.key + "\")' type='button' value='-' class='minusButton'>";
+                newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + item.val() + "</p>";
+                newHTML += "<input onclick='addOneShopping(\"" + item.key + "\")' type='button' value='+' class='plusButton'>";
+                newHTML += "<input onclick='bought(\"" + item.key + "\")' type='button' value='Bought' class='boughtButton'>";
+                newHTML += "</div>";
+                newHTML += "</div>";
+            }
         });
         document.getElementById("shoppingListContainer").innerHTML = newHTML;
     });
@@ -94,6 +105,7 @@ function displayLocations()
 {
     locationRef.on('value', function(snapshot){
         var newHTML = "";
+        var filterHTML = "<option value='All'>All</option>";
         snapshot.forEach(function(location){
             newHTML += "<div class='listItem'>";
             newHTML += "<div class='leftList'>";
@@ -106,8 +118,10 @@ function displayLocations()
             newHTML += "</div>    ";            
             newHTML += "</div>";
 
+            filterHTML += "<option value='" + location.key + "'>" + location.key + "</option>";
         });
         document.getElementById("locationList").innerHTML = newHTML;
+        document.getElementById("storeFilter").innerHTML = filterHTML;
     });
 }
 
@@ -338,19 +352,19 @@ function displayInventory()
     inventoryRef.on('value', function(snapshot){
         var newHTML = "";
         snapshot.forEach(function(inventory){
-            
-        newHTML += "<div class='listItem'>";
-        newHTML += "<div class='leftList'>";
-        newHTML += "<p>" + inventory.key + "</p>";
-        newHTML += "<input onclick='addToShoppingList(\"" + inventory.key + "\")' class='addToShoppingListButton' value='+List' type='button'>";
-        newHTML += "</div>";
-        newHTML += "<div class='rightList'>";
-        newHTML += "<input type='button' class='minusButton' value='-' onclick='subtractOne(\"" + inventory.key + "\")'>";
-        newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + inventory.val() + "</p>";
-        newHTML += "<input type='button' class='plusButton' value='+' onclick='addOne(\"" + inventory.key + "\")'>";
-        newHTML += "</div>";
-        newHTML += "</div>";
-            
+
+            newHTML += "<div class='listItem'>";
+            newHTML += "<div class='leftList'>";
+            newHTML += "<p>" + inventory.key + "</p>";
+            newHTML += "<input onclick='addToShoppingList(\"" + inventory.key + "\")' class='addToShoppingListButton' value='+List' type='button'>";
+            newHTML += "</div>";
+            newHTML += "<div class='rightList'>";
+            newHTML += "<input type='button' class='minusButton' value='-' onclick='subtractOne(\"" + inventory.key + "\")'>";
+            newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + inventory.val() + "</p>";
+            newHTML += "<input type='button' class='plusButton' value='+' onclick='addOne(\"" + inventory.key + "\")'>";
+            newHTML += "</div>";
+            newHTML += "</div>";
+
         });
         document.getElementById("inventoryList").innerHTML = newHTML;
     });
@@ -488,4 +502,14 @@ function logOut()
 function addNewToShoppingList()
 {
     console.log("Clicked!");
+}
+
+function filter()
+{
+    shoppingRef.update({
+        X: true
+    });
+    shoppingRef.update({
+        X: null
+    });
 }
