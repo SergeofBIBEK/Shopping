@@ -19,7 +19,7 @@ function signedInHandler()
     displayLocations();
     displayProducts();
     displayInventory();
-    displayShoppingList();
+    //displayShoppingList();
 
     setUpUserBox();
 }
@@ -459,4 +459,9 @@ function showProfileTab()
 function logOut()
 {
     firebase.auth().signOut().then(function(){location.reload();});
+}
+
+function addNewToShoppingList()
+{
+    console.log("Clicked!");
 }

@@ -1,3 +1,18 @@
+*
+{
+    -webkit-appearance: none;
+}
+
+input
+{
+    outline: none;
+}
+
+input:active
+{
+    transform: scale(0.9);
+}
+
 #siteContainer
 {
     display: flex;
@@ -53,22 +68,22 @@
     color: black;
 }
 
-#newLocation
-{
-    background-color: aqua;
-}
-
-#newProduct
-{
-    background-color: orange;
-}
-
 .listItem 
 {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    border-bottom: 1px solid black;
+}
+
+.listItem > *
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #locationOptions, #productOptions
@@ -95,4 +110,125 @@
     width: 100vw;
     background-color: rgba(0,0,0,0.8);
     z-index: 2;
+}
+
+.tableHeader h3 
+{
+    width: 100%;
+    text-align: center;
+    border-bottom: 3px solid black;
+    margin: 0px;
+}
+
+.tableHeader 
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabContainer
+{
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.listContainer 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.leftList
+{
+    border-right: 1.5px solid black;
+}
+
+.rightList
+{
+    border-left: 1.5px solid black;
+}
+
+.boughtButton
+{
+    position: relative;
+    left: 20px;
+    background-color: #ffd90c;
+    color: black;
+    border: 2px dotted white;
+    height: 30px;
+    font-size: 17px;
+}
+
+.boughtButton:hover 
+{
+    background-color: black;
+    color: #ffd90c;
+}
+
+.removeFromShoppingListButton 
+{
+    position: relative;
+    right: 20px;
+    background-color: #e02020;
+    color: white;
+    border: 2px dotted white;
+    height: 30px;
+    width: 30px;
+    font-size: 17px;
+}
+
+.removeFromShoppingListButton:hover
+{
+    background-color: black;
+    color: #e02020;
+}
+
+.minusButton 
+{
+    background-color: #e02020;
+    color: white;
+    border: 2px dotted white;
+    height: 30px;
+    width: 30px;
+    font-size: 17px;
+}
+
+.minusButton:hover
+{
+    background-color: black;
+    color: #e02020;
+}
+
+.plusButton 
+{
+    background-color: #04e004;
+    color: black;
+    border: 2px dotted white;
+    height: 30px;
+    width: 30px;
+    font-size: 17px;
+}
+
+.plusButton:hover
+{
+    background-color: black;
+    color: #04e004;
+}
+
+.addAnother
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b3ffb5;
+    font-size: 20px;
 }

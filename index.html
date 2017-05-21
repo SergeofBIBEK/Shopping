@@ -1,9 +1,10 @@
 <html>
     <head>
-
+        <!--META-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8"/>
 
+        <!--FIREBASE-->
         <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
         <script>
             // Initialize Firebase
@@ -25,13 +26,16 @@
         <!--Firebase Logged In-->
         <script type="text/javascript" src="fbli.js"></script>
 
+        <!--LOCAL FILES-->
         <script type="text/javascript" src="main.js"></script>
         <link rel="stylesheet" href="main.css">
     </head>
 
     <body>
+        <!--The Whole Site-->
         <div id="siteContainer">
 
+            <!--HEADER-->
             <div id="Header">
                 <div class="headerItem" onclick="showShoppingListTab()"><p>Shopping List</p></div>
                 <div class="headerItem" onclick="showLocationsTab()"><p>Locations</p></div>
@@ -43,35 +47,69 @@
             </div>
             <div id="HeaderBuffer"></div>
 
-            <div style="display: none;" id="ShoppingList">
-                <div id="shoppingListContainer"></div>
+
+            <!--SHOPPING LIST TAB-->
+            <div style="display: none;" id="ShoppingList" class="tabContainer">
+                <h2>Shopping List</h2>
+                <div class="tableHeader"><h3>Product</h3><h3>Quantity</h3></div>
+
+                <div id="shoppingListContainer" class="listContainer">
+                    <div class='listItem'>
+                        <div class="leftList">
+                            <input onclick='removeFromShoppingList(\"" + item.key + "\")' type='button' value='x' class='removeFromShoppingListButton'>
+                            <p>item.key</p>
+                        </div>
+                        <div class="rightList">
+                            <input onclick='subtractOneShopping(\"" + item.key + "\")' type='button' value='-' class='minusButton'>
+                            <p>item.val()</p>
+                            <input onclick='addOneShopping(\"" + item.key + "\")' type='button' value='+' class='plusButton'>
+                            <input onclick='bought(\"" + item.key + "\")' type='button' value='Bought' class='boughtButton'>
+                        </div>
+                    </div>
+                </div>
+                <div class="addAnother" onclick="addNewToShoppingList()">Add Another</div>
             </div>
 
-            <div style="display: none;" id="Locations">
-                <div id="locationList"></div>
-                <div id="newLocation" onclick="newLocation();">+</div>
+            <!--LOCATIONS TAB-->
+            <div style="display: none;" class="tabContainer" id="Locations">
+                <h2>Locations</h2>
+                <div class="tableHeader"><h3>Store</h3><h3>Products</h3></div>
+                <div id="locationList" class="listContainer"></div>
+                <div id="newLocation" class="addAnother" onclick="newLocation();">Add Another</div>
             </div>
 
-            <div style="display: none;" id="Products">
-                <div id="productList"></div>
-                <div id="newProduct" onclick="newProduct();">+</div>
+            <!--PRODUCTS TAB-->
+            <div style="display: none;" id="Products" class="tabContainer">
+                <h2>Products</h2>
+                <div class="tableHeader"><h3>Item</h3><h3>Locations</h3></div>
+
+                <div id="productList" class="listContainer"></div>
+                <div id="newProduct" class="addAnother" onclick="newProduct();">Add Another</div>
             </div>
 
-            <div style="display: none;" id="Inventory">
-                <div id="inventoryList"></div>
+            <!--INVENTORY TAB-->
+            <div style="display: none;" class="tabContainer" id="Inventory">
+                <h2>Inventory</h2>
+                <div class="tableHeader"><h3>Item</h3><h3>Quantity</h3></div>
+                <div id="inventoryList" class="listContainer"></div>
             </div>
 
+            <!--PROFILE TAB-->
             <div style="display: none;" id="Profile">
                 <h2>Profile</h2>
                 <input type="button" value="Sign Out" class="signOutButton" onclick="logOut()">
             </div>
-            
+
+            <!--OPTIONS MODAL FOR LOCATION-->
             <div id="locationOptions" style="display: none;"></div>
-            
+
+            <!--OPTIONS MODAL FOR PRODUCTS-->
             <div id="productOptions" style="display: none;"></div>
 
+            <!--FOOTER-->
             <div id="Footer"></div>
 
+            <!--LOGIN BUTTONS-->
             <div id="firebaseui-auth-container"></div>
         </div>
         <div id="coverAll" style="display:none;"></div>
