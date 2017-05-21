@@ -1,7 +1,7 @@
 @media all and (min-width: 50px)   {  body, input  { font-size:0.4em;  } }
-@media all and (min-width: 100px)  {  body, input  { font-size:0.6em;  } }
-@media all and (min-width: 200px)  {  body, input  { font-size:0.8em;  } }
-@media all and (min-width: 300px)  {  body, input  { font-size:1.0em;  } }
+@media all and (min-width: 100px)  {  body, input  { font-size:0.4em;  } }
+@media all and (min-width: 200px)  {  body, input  { font-size:0.6em;  } }
+@media all and (min-width: 300px)  {  body, input  { font-size:0.8em;  } }
 @media all and (min-width: 400px)  {  body, input  { font-size:1.0em;  } }
 @media all and (min-width: 500px)  {  body, input  { font-size:1.2em;  } }
 @media all and (min-width: 600px)  {  body, input  { font-size:1.2em;  } }
@@ -76,7 +76,7 @@ input:active
 
 .userPhoto
 {
-    height: 90%;
+    height: 70%;
     margin: 0px 5px;
 }
 
