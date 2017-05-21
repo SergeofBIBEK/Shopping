@@ -25,6 +25,10 @@ initUser = function() {
             currentUser.email = user.email;
             currentUser.emailVerified = user.emailVerified;
             currentUser.photoURL = user.photoURL;
+            if (currentUser.photoURL == null)
+            {
+                currentUser.photoURL = 'https://openclipart.org/download/237991/users81.svg';
+            }
             currentUser.uid = user.uid;
             currentUser.providerData = user.providerData;
             signedInHandler();

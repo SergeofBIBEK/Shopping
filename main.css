@@ -18,6 +18,7 @@ body
 {
     margin: 0px;
     overflow-x: hidden;
+    background-color: #23b5ff;
 }
 
 input
@@ -34,7 +35,9 @@ input:active
 
 select
 {
-    background-color: #0aa4ff;
+    background-image: url(favicon-310.png);
+    background-position: -30px -92px;
+    background-size: 400px;
     border: 4px double black;
     outline: none;
     padding: 5px;
@@ -73,8 +76,11 @@ select
 
 .headerItem
 {
+    background-image: url(favicon-310.png);
+    background-position: -30px -30px;
+    background-size: 210px;
     width: 100%;
-    border: 4px double white;
+    border: 4px double #23b5ff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,8 +88,8 @@ select
 
 .headerItem:hover
 {
-    background-color: black;
-    color: green;
+    background-size: 170px;
+    background-position: -10px -20px;
 }
 
 .userPhoto
@@ -96,7 +102,7 @@ select
 {
     background-color: #16f5d8;
     color: black;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .signOutButton:hover
@@ -198,7 +204,7 @@ select
 {
     background-color: #ffd90c;
     color: black;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .boughtButton:hover 
@@ -211,7 +217,7 @@ select
 {
     background-color: #0064ff;
     color: black;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .changeButton:hover 
@@ -224,7 +230,7 @@ select
 {
     background-color: #bb23ea;
     color: black;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .addToShoppingListButton:hover 
@@ -237,7 +243,7 @@ select
 {
     background-color: #e02020;
     color: white;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .removeFromShoppingListButton:hover, .deleteButton:hover
@@ -250,7 +256,7 @@ select
 {
     background-color: #e02020;
     color: white;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .minusButton:hover, .removeButton:hover
@@ -263,7 +269,7 @@ select
 {
     background-color: #04e004;
     color: black;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .plusButton:hover, .addButton:hover
@@ -276,7 +282,7 @@ select
 {
     background-color: gray;
     color: black;
-    border: 2px dotted white;
+    border: 2px dotted #23b5ff;
 }
 
 .cancelButton:hover
