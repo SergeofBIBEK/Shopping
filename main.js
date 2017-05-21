@@ -19,7 +19,7 @@ function signedInHandler()
     displayLocations();
     displayProducts();
     displayInventory();
-    //displayShoppingList();
+    displayShoppingList();
 
     setUpUserBox();
 }
@@ -27,14 +27,19 @@ function signedInHandler()
 function displayShoppingList()
 {
     shoppingRef.on('value', function(snapshot){
-        var newHTML = "<h2>Shopping List</h2>";
+        var newHTML = "";
         snapshot.forEach(function(item){
             newHTML += "<div class='listItem'>";
-            newHTML += "<input onclick='bought(\"" + item.key + "\")' type='button' value='Bought' class='boughtButton'>";
+            newHTML += "<div class='leftList'>";
             newHTML += "<input onclick='removeFromShoppingList(\"" + item.key + "\")' type='button' value='x' class='removeFromShoppingListButton'>";
-            newHTML += "<input onclick='addOneShopping(\"" + item.key + "\")' type='button' value='+' class='plusButton'>";
+            newHTML += "<p>" + item.key + "</p>";
+            newHTML += "</div>";
+            newHTML += "<div class='rightList'>";
             newHTML += "<input onclick='subtractOneShopping(\"" + item.key + "\")' type='button' value='-' class='minusButton'>";
-            newHTML += "<p>" + item.key + ": " + item.val() + "</p>";
+            newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + item.val() + "</p>";
+            newHTML += "<input onclick='addOneShopping(\"" + item.key + "\")' type='button' value='+' class='plusButton'>";
+            newHTML += "<input onclick='bought(\"" + item.key + "\")' type='button' value='Bought' class='boughtButton'>";
+            newHTML += "</div>";
             newHTML += "</div>";
         });
         document.getElementById("shoppingListContainer").innerHTML = newHTML;

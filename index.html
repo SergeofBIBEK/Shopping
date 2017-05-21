@@ -53,20 +53,8 @@
                 <h2>Shopping List</h2>
                 <div class="tableHeader"><h3>Product</h3><h3>Quantity</h3></div>
 
-                <div id="shoppingListContainer" class="listContainer">
-                    <div class='listItem'>
-                        <div class="leftList">
-                            <input onclick='removeFromShoppingList(\"" + item.key + "\")' type='button' value='x' class='removeFromShoppingListButton'>
-                            <p>item.key</p>
-                        </div>
-                        <div class="rightList">
-                            <input onclick='subtractOneShopping(\"" + item.key + "\")' type='button' value='-' class='minusButton'>
-                            <p>item.val()</p>
-                            <input onclick='addOneShopping(\"" + item.key + "\")' type='button' value='+' class='plusButton'>
-                            <input onclick='bought(\"" + item.key + "\")' type='button' value='Bought' class='boughtButton'>
-                        </div>
-                    </div>
-                </div>
+                <div id="shoppingListContainer" class="listContainer"></div>
+                
                 <div class="addAnother" onclick="addNewToShoppingList()">Add Another</div>
             </div>
 
