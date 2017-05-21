@@ -93,13 +93,19 @@ function setUpUserBox()
 function displayLocations()
 {
     locationRef.on('value', function(snapshot){
-        var newHTML = "<h2>Locations</h2>";
+        var newHTML = "";
         snapshot.forEach(function(location){
             newHTML += "<div class='listItem'>";
+            newHTML += "<div class='leftList'>";
             newHTML += "<input onclick='removeLocation(\"" + location.key + "\")' class='deleteButton' value='x' type='button'>";
-            newHTML += "<p>" + location.key + " : " + getProductsByLocation(location.key) + "</p>";
-            newHTML += "<input onclick='addProductToLocation(\"" + location.key + "\")' type='button' class='productToLocationButton' value='Change Product'>";
+            newHTML += "<p>" + location.key + "</p>";
             newHTML += "</div>";
+            newHTML += "<div class='rightList'>";
+            newHTML += "<p>" + getProductsByLocation(location.key) + "</p>";
+            newHTML += "<input onclick='addProductToLocation(\"" + location.key + "\")' type='button' class='changeButton' value='Edit'>";
+            newHTML += "</div>    ";            
+            newHTML += "</div>";
+
         });
         document.getElementById("locationList").innerHTML = newHTML;
     });
@@ -194,14 +200,21 @@ function removeLocation(locationKey)
 function displayProducts()
 {
     productRef.on('value', function(snapshot){
-        var newHTML = "<h2>Products</h2>";
+        var newHTML = "";
         snapshot.forEach(function(product){
+
             newHTML += "<div class='listItem'>";
-            newHTML += "<input onclick='addToShoppingList(\"" + product.key + "\")' class='addToShoppingListButton' value='Add to Shopping List' type='button'>";
+            newHTML += "<div class='leftList'>";
             newHTML += "<input onclick='removeProduct(\"" + product.key + "\")' class='deleteButton' value='x' type='button'>";
-            newHTML += "<p>" + product.key + " : " + getLocationsByProduct(product.key) + "</p>";
-            newHTML += "<input onclick='addLocationToProduct(\"" + product.key + "\")' type='button' class='locationToProductButton' value='Change Location'>";
+            newHTML += "<p>" + product.key + "</p>";
+            newHTML += "<input onclick='addToShoppingList(\"" + product.key + "\")' class='addToShoppingListButton' value='+List' type='button'>";
             newHTML += "</div>";
+            newHTML += "<div class='rightList'>";
+            newHTML += "<p>" + getLocationsByProduct(product.key) + "</p>";
+            newHTML += "<input onclick='addLocationToProduct(\"" + product.key + "\")' type='button' class='changeButton' value='Edit'>";
+            newHTML += "</div>";
+            newHTML += "</div> ";
+
         });
         document.getElementById("productList").innerHTML = newHTML;
     });
@@ -323,15 +336,21 @@ function removeProduct(productKey)
 function displayInventory()
 {
     inventoryRef.on('value', function(snapshot){
-        var newHTML = "<h2>Inventory</h2>";
+        var newHTML = "";
         snapshot.forEach(function(inventory){
-            newHTML += "<div class='listItem'>";
-            newHTML += "<input onclick='addToShoppingList(\"" + inventory.key + "\")' class='addToShoppingListButton' value='Add to Shopping List' type='button'>";
-            newHTML += "<input type='button' value='+' onclick='addOne(\"" + inventory.key + "\")'>";
-            newHTML += "<input type='button' value='-' onclick='subtractOne(\"" + inventory.key + "\")'>";
-            newHTML += "<p>" + inventory.key + ": " + inventory.val() + "</p>";
-
-            newHTML += "</div>";
+            
+        newHTML += "<div class='listItem'>";
+        newHTML += "<div class='leftList'>";
+        newHTML += "<p>" + inventory.key + "</p>";
+        newHTML += "<input onclick='addToShoppingList(\"" + inventory.key + "\")' class='addToShoppingListButton' value='+List' type='button'>";
+        newHTML += "</div>";
+        newHTML += "<div class='rightList'>";
+        newHTML += "<input type='button' class='minusButton' value='-' onclick='subtractOne(\"" + inventory.key + "\")'>";
+        newHTML += "<p style='margin-left: 5px; margin-right: 5px;'>" + inventory.val() + "</p>";
+        newHTML += "<input type='button' class='plusButton' value='+' onclick='addOne(\"" + inventory.key + "\")'>";
+        newHTML += "</div>";
+        newHTML += "</div>";
+            
         });
         document.getElementById("inventoryList").innerHTML = newHTML;
     });
